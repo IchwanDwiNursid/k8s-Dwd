@@ -8,9 +8,8 @@ spec:
       storage: 1Gi
   accessModes:
     - ReadWriteOnce
-  storageClassName: standard # sesuaikan dengan storage class yang ada
---- 
-
+  storageClassName: standard # sesuaikan dengan storage class yang ada / minikube - standar
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -29,17 +28,17 @@ spec:
           persistentVolumeClaim:
             claimName: pvc-sc
       containers:
-      - name: nginx-sc
-        image: nginx:alpine
-        resources:
-          limits:
-            memory: "10Mi"
-            cpu: "10m"
-        ports:
-        - containerPort: 80
-        volumeMounts:
-          - mountPath: /usr/share/nginx/html
-            name: pvc-sc-volume
+        - name: nginx-sc
+          image: nginx:alpine
+          resources:
+            limits:
+              memory: "10Mi"
+              cpu: "10m"
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - mountPath: /usr/share/nginx/html
+              name: pvc-sc-volume
 
 ---
 apiVersion: v1
@@ -50,6 +49,5 @@ spec:
   selector:
     app: nginx-sc
   ports:
-  - port: 80
-    targetPort: 80
-
+    - port: 80
+      targetPort: 80

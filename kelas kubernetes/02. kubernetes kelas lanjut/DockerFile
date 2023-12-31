@@ -1,0 +1,6 @@
+FROM alpine
+
+RUN mkdir hello
+RUN echo "Hello Privat Registry" > hello/index.html
+
+CMD cat hello/index.html

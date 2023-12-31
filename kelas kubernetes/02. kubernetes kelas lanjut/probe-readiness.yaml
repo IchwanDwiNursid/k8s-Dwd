@@ -13,22 +13,21 @@ spec:
         app: nginx-app-readiness
     spec:
       containers:
-      - name: nginx-app-readiness
-        image: nginx:alpine
-        resources:
-          limits:
-            memory: "10Mi"
-            cpu: "10m"
-        ports:
-        - containerPort: 80
-        readinessProbe:
-          httpGet:
-            path: / # untuk beberapa app bisanya /health atau /healthz
-            port: 80
-          initialDelaySeconds: 5 # tunggu 5 detik di awal sebelum melakukan probe yang pertama
-          failureThreshold: 5 # berapa banyak error/failure yang ditoleransi
-          periodSeconds: 10 # interval pengecekan
-
+        - name: nginx-app-readiness
+          image: nginx:alpine
+          resources:
+            limits:
+              memory: "10Mi"
+              cpu: "10m"
+          ports:
+            - containerPort: 80
+          readinessProbe:
+            httpGet:
+              path: / # untuk beberapa app bisanya /health atau /healthz
+              port: 80
+            initialDelaySeconds: 5 # tunggu 5 detik di awal sebelum melakukan probe yang pertama
+            failureThreshold: 5 # berapa banyak error/failure yang ditoleransi
+            periodSeconds: 10 # interval pengecekan
 
 ---
 apiVersion: v1
@@ -39,6 +38,5 @@ spec:
   selector:
     app: nginx-app-readiness
   ports:
-  - port: 80
-    targetPort: 80
-
+    - port: 80
+      targetPort: 80

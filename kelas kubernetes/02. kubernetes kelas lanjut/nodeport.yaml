@@ -1,24 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-headless
+  name: myapp
 spec:
-  replicas: 3
   selector:
     matchLabels:
-      app: nginx-headless
+      app: myapp
   template:
     metadata:
       labels:
-        app: nginx-headless
+        app: myapp
     spec:
       containers:
-        - name: nginx-headless
+        - name: myapp
           image: nginx:alpine
           resources:
             limits:
-              memory: "10Mi"
-              cpu: "10m"
+              memory: "128Mi"
+              cpu: "500m"
           ports:
             - containerPort: 80
 
@@ -26,12 +25,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-headless
+  name: service-lb
 spec:
-  type: ClusterIP # Harus menggunakan ClusterIP
-  clusterIP: None # value ini harus None
+  type: LoadBalancer
   selector:
-    app: nginx-headless
+    app: myapp
   ports:
-    - port: 80
+    - port: 8080
       targetPort: 80

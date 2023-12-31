@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: nginx-app
 spec:
+  replicas: 3
   selector:
     matchLabels:
       app: nginx-app
@@ -16,11 +17,11 @@ spec:
         kubernetes.io/arch: arm64
         kubernetes.io/os: linux
       containers:
-      - name: nginx-app
-        image: nginx:alpine
-        resources:
-          limits:
-            memory: "10Mi"
-            cpu: "10m"
-        ports:
-        - containerPort: 80
+        - name: nginx-app
+          image: nginx:alpine
+          resources:
+            limits:
+              memory: "10Mi"
+              cpu: "10m"
+          ports:
+            - containerPort: 80

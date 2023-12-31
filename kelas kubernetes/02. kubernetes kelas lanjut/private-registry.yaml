@@ -12,13 +12,13 @@ spec:
         app: nginx-private
     spec:
       imagePullSecrets:
-      - name: my-private-registry # sesuaikan dengan nama secret yang dibuat
+        - name: my-private-registry # sesuaikan dengan nama secret yang dibuat
       containers:
-      - name: nginx-private
-        image: rahadiangg/nginx-private:alpine # gunakan private image kalian
-        resources:
-          limits:
-            memory: "10Mi"
-            cpu: "10m"
-        ports:
-        - containerPort: 80
+        - name: nginx-private
+          image: nursid/ichwan:latest # gunakan private image kalian
+          resources:
+            limits:
+              memory: "100m"
+              cpu: "1000m"
+          ports:
+            - containerPort: 80
